@@ -1,10 +1,12 @@
 
 import App from './Three'; // Appコンポーネントをインポート
+import {Header} from "../header/Header";
+import { Title } from '../title/Title';
 
-// Overlayコンポーネントの定義
 function Overlay() {
   return (
     <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
+      <Title />
     </div>
   );
 }

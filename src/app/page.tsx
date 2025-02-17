@@ -1,4 +1,4 @@
-import Root from "../components/index";
+import Root from "../components/three/Over";
 
 export default function Page() {
   return (

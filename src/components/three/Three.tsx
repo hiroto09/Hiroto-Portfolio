@@ -15,11 +15,32 @@ import {
   AccumulativeShadows,
   MeshTransmissionMaterial,
 } from "@react-three/drei";
+import * as THREE from "three";
 
 
-export default function App({ spheres }) {
+interface AppProps {
+  spheres: [number, string, number, [number, number, number]][];
+}
+interface AquariumProps {
+  children: React.ReactNode;
+  position: [number, number, number];
+}
+interface SphereProps {
+  position: [number, number, number];
+  scale: number;
+  speed: number;
+  color: string;
+}
+interface OrcaProps {
+  position: [number, number, number];
+  rotation: [number, number, number];
+  scale: number;
+}
 
-  const [aquariumPosition, setAquariumPosition] = useState([0, 0.25, 0]);
+
+export default function Three({ spheres }: AppProps) {
+
+  const [aquariumPosition, setAquariumPosition] = useState<[number, number, number]>([0, 0.25, 0]);
 
   useLayoutEffect(() => {
     const handleResize = () => {
@@ -117,22 +138,24 @@ export default function App({ spheres }) {
   );
 }
 
-function Aquarium({ children, ...props }) {
-  const ref = useRef();
+function Aquarium({ children, ...props }:AquariumProps) {
+  const ref = useRef<THREE.Group>(null);
   const { nodes } = useGLTF("/shapes-transformed.glb");
   const stencil = useMask(1, false);
   useLayoutEffect(() => {
     // Apply stencil to all contents
-    ref.current.traverse(
-      (child) => child.material && Object.assign(child.material, { ...stencil })
-    );
-  }, []);
+    if(ref.current){
+      ref.current.traverse(
+        (child) => (child as THREE.Mesh).material && Object.assign((child as THREE.Mesh).material, { ...stencil })
+      );
+    }
+  }, [stencil]);
   return (
     <group {...props} dispose={null}>
       <mesh
         castShadow
         scale={[0.61 * 6, 0.8 * 6, 1 * 5]}
-        geometry={nodes.Cube.geometry}
+        geometry={(nodes.Cube as THREE.Mesh).geometry}
       >
         <MeshTransmissionMaterial
           backside
@@ -153,7 +176,7 @@ function Aquarium({ children, ...props }) {
   );
 }
 
-function Sphere({ position, scale = 1, speed = 0.1, color = "red" }) {
+function Sphere({ position, scale = 1, speed = 0.1, color = "red" }: SphereProps) {
   return (
     <Float rotationIntensity={40} floatIntensity={20} speed={speed / 1}>
       <Instance position={position} scale={scale} color={color} />
@@ -161,7 +184,7 @@ function Sphere({ position, scale = 1, speed = 0.1, color = "red" }) {
   );
 }
 
-function Orca(props) {
+function Orca(props: OrcaProps) {
   const { scene } = useGLTF("shiro-syati.glb");
   useFrame(
     (state) => (scene.rotation.z = Math.sin(state.clock.elapsedTime / 4) / 2)

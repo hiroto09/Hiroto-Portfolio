@@ -1,6 +1,5 @@
 
-import App from './Three'; // Appコンポーネントをインポート
-import {Header} from "../header/Header";
+import Three from './Three';
 import { Title } from '../title/Title';
 
 function Overlay() {
@@ -14,7 +13,7 @@ function Overlay() {
 export default function Page() {
   return (
     <>
-      <App
+      <Three
         spheres={[
           [1, 'red', 0.05, [-4, -1, -1]],
           [0.75, 'red', 0.1, [-4, 2, -2]],

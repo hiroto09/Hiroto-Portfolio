@@ -8,13 +8,11 @@ function Overlay() {
       <Title />
   );
 }
-
 export default function Page() {
   return (
     <>
       <Three
         spheres={[
-          [1, 'red', 0.05, [-4, -1, -1]],
           [0.75, 'red', 0.1, [-4, 2, -2]],
           [1.25, 'red', 0.2, [4, -3, 2]],
           [1.5, 'red', 0.3, [-4, -2, -3]],

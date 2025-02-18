@@ -1,17 +1,8 @@
 
 import Three from './Three';
-import { Title } from '../title/Title';
-import "./Over.css";
+import "./ThreeArea.scss";
 
 
-function Overlay() {
-  return (
-    <>
-      <Title />
-      <h1>aiuw</h1>
-    </>
-  );
-}
 
 export default function Page() {
   return (
@@ -34,7 +25,6 @@ export default function Page() {
           ]}
         />
       </div>
-      <Overlay />
     </>
   );
 }

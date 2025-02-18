@@ -61,6 +61,7 @@ export default function Three({ spheres }: AppProps) {
     <Canvas
       shadows
       camera={{ position: [30, 9, 0], fov: 35, near: 1, far: 40 }}
+      style={{ width: "100vw", height: "100vh", position: "fixed" }}
     >
       <color attach="background" args={["white"]} />
       {/** Glass aquarium */}

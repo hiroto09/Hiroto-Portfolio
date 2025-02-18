@@ -1,3 +1,8 @@
+.titleArea{
+    width: 100vb;
+    height: 100vh;
+}
+
 .title{
     z-index: 100;
     position: absolute;
@@ -11,7 +16,8 @@
 }
 @media screen and (min-width: 1120px){
     .title{
-        left: 75%;
+        left: 25%;
         font-size: 2rem;
+        color: #000;
     }
 }

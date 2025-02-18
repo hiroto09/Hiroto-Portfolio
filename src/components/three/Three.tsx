@@ -47,7 +47,7 @@ export default function Three({ spheres }: AppProps) {
       if (window.innerWidth <= 1120) {
         setAquariumPosition([0, 0.25, 0]);
       } else {
-        setAquariumPosition([0, 0.25, 8]);
+        setAquariumPosition([0, 0.25, -8]);
       }
     };
     handleResize(); // 初期値を設定
@@ -62,11 +62,11 @@ export default function Three({ spheres }: AppProps) {
       shadows
       camera={{ position: [30, 9, 0], fov: 35, near: 1, far: 40 }}
     >
-      <color attach="background" args={["#000000"]} />
+      <color attach="background" args={["white"]} />
       {/** Glass aquarium */}
       <Aquarium position={aquariumPosition}>
         <Float rotationIntensity={2} floatIntensity={10} speed={2}>
-          <Orca position={[0, 0, -1]} rotation={[0, 2, 0]} scale={3} />
+          <Orca position={[0, 0, -1]} rotation={[0, 1, 0]} scale={3} />
         </Float>
         <Instances renderOrder={-1000}>
           <sphereGeometry args={[1, 64, 64]} />
@@ -187,7 +187,7 @@ function Sphere({ position, scale = 1, speed = 0.1, color = "red" }: SphereProps
 function Orca(props: OrcaProps) {
   const { scene } = useGLTF("shiro-syati.glb");
   useFrame(
-    (state) => (scene.rotation.z = Math.sin(state.clock.elapsedTime / 4) / 2)
+    (state) => (scene.rotation.z = Math.sin(state.clock.elapsedTime / 1) / 2)
   );
   return <primitive object={scene} {...props} />;
 }

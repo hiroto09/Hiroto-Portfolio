@@ -1,5 +1,5 @@
 "use client";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   useMask,
@@ -17,6 +17,9 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
+// モデルのプリロード
+useGLTF.preload("/shapes-transformed.glb");
+useGLTF.preload("shiro-syati.glb");
 
 interface AppProps {
   spheres: [number, string, number, [number, number, number]][];
@@ -37,20 +40,32 @@ interface OrcaProps {
   scale: number;
 }
 
-
 export default function Three({ spheres }: AppProps) {
+  const [aquariumPosition, setAquariumPosition] = useState<
+    [number, number, number]
+  >([0, 0.25, 0]);
+  const windowWidth = useRef(window.innerWidth);
 
-  const [aquariumPosition, setAquariumPosition] = useState<[number, number, number]>([0, 0.25, 0]);
+  useEffect(() => {
+    if (window.innerWidth <= 1120) {
+      setAquariumPosition([0, 0.25, 0]);
+    } else {
+      setAquariumPosition([0, 0.25, -8]);
+    }
+  }, []);
 
   useLayoutEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 1120) {
-        setAquariumPosition([0, 0.25, 0]);
-      } else {
-        setAquariumPosition([0, 0.25, -8]);
+      const newWidth = window.innerWidth;
+      if (
+        (windowWidth.current > 1120 && newWidth <= 1120) ||
+        (windowWidth.current <= 1120 && newWidth > 1120)
+      ) {
+        setAquariumPosition(newWidth <= 1120 ? [0, 0.25, 0] : [0, 0.25, -8]);
       }
+      windowWidth.current = newWidth;
     };
-    handleResize(); // 初期値を設定
+
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -64,7 +79,6 @@ export default function Three({ spheres }: AppProps) {
       style={{ width: "100vw", height: "100vh" }}
     >
       <color attach="background" args={["white"]} />
-      {/** Glass aquarium */}
       <Aquarium position={aquariumPosition}>
         <Float rotationIntensity={2} floatIntensity={10} speed={2}>
           <Orca position={[0, 0, -1]} rotation={[0, 1, 0]} scale={3} />
@@ -83,7 +97,6 @@ export default function Three({ spheres }: AppProps) {
           ))}
         </Instances>
       </Aquarium>
-      {/** Soft shadows */}
       <AccumulativeShadows
         temporal
         frames={100}
@@ -102,7 +115,6 @@ export default function Three({ spheres }: AppProps) {
           size={20}
         />
       </AccumulativeShadows>
-      {/** Custom environment map */}
       <Environment resolution={1024}>
         <group rotation={[-Math.PI / 3, 0, 0]}>
           <Lightformer
@@ -139,18 +151,22 @@ export default function Three({ spheres }: AppProps) {
   );
 }
 
-function Aquarium({ children, ...props }:AquariumProps) {
+function Aquarium({ children, ...props }: AquariumProps) {
   const ref = useRef<THREE.Group>(null);
   const { nodes } = useGLTF("/shapes-transformed.glb");
   const stencil = useMask(1, false);
+
   useLayoutEffect(() => {
-    // Apply stencil to all contents
-    if(ref.current){
-      ref.current.traverse(
-        (child) => (child as THREE.Mesh).material && Object.assign((child as THREE.Mesh).material, { ...stencil })
-      );
+    if (ref.current) {
+      ref.current.traverse((child) => {
+        const mesh = child as THREE.Mesh;
+        if (mesh.material) {
+          Object.assign(mesh.material, { ...stencil });
+        }
+      });
     }
   }, [stencil]);
+
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -158,10 +174,10 @@ function Aquarium({ children, ...props }:AquariumProps) {
         scale={[0.61 * 6, 0.8 * 6, 1 * 5]}
         geometry={(nodes.Cube as THREE.Mesh).geometry}
       >
-        <MeshTransmissionMaterial
+         <MeshTransmissionMaterial
           backside
           samples={4}
-          thickness={3}
+          thickness={1.5}
           chromaticAberration={0.025}
           anisotropy={0.1}
           distortion={0.1}
@@ -177,9 +193,14 @@ function Aquarium({ children, ...props }:AquariumProps) {
   );
 }
 
-function Sphere({ position, scale = 1, speed = 0.1, color = "red" }: SphereProps) {
+function Sphere({
+  position,
+  scale = 1,
+  speed = 0.1,
+  color = "red",
+}: SphereProps) {
   return (
-    <Float rotationIntensity={40} floatIntensity={20} speed={speed / 1}>
+    <Float rotationIntensity={40} floatIntensity={20} speed={speed}>
       <Instance position={position} scale={scale} color={color} />
     </Float>
   );
@@ -187,8 +208,10 @@ function Sphere({ position, scale = 1, speed = 0.1, color = "red" }: SphereProps
 
 function Orca(props: OrcaProps) {
   const { scene } = useGLTF("shiro-syati.glb");
-  useFrame(
-    (state) => (scene.rotation.z = Math.sin(state.clock.elapsedTime / 1) / 2)
-  );
+
+  useFrame((state) => {
+    scene.rotation.z = Math.sin(state.clock.elapsedTime) / 2;
+  });
+
   return <primitive object={scene} {...props} />;
 }

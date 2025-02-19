@@ -48,7 +48,7 @@ export default function Three({ spheres }: AppProps) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      
+
       const newWidth = window.innerWidth;
       setAquariumPosition(newWidth <= 1120 ? [0, 0.25, 0] : [0, 0.25, -8]);
       windowWidth.current = newWidth;
@@ -76,7 +76,7 @@ export default function Three({ spheres }: AppProps) {
       shadows
       camera={{ position: [30, 9, 0], fov: 35, near: 1, far: 40 }}
     >
-      <color attach="background" args={["white"]} />
+      <color attach="background" args={["#f8fbff"]} />
       <Aquarium position={aquariumPosition}>
         <Float rotationIntensity={2} floatIntensity={10} speed={2}>
           <Orca position={[0, 0, -1]} rotation={[0, 1, 0]} scale={3} />

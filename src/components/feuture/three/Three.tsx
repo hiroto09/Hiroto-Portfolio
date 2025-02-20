@@ -48,7 +48,6 @@ export default function Three({ spheres }: AppProps) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-
       const newWidth = window.innerWidth;
       setAquariumPosition(newWidth <= 1120 ? [0, 0.25, 0] : [0, 0.25, -8]);
       windowWidth.current = newWidth;

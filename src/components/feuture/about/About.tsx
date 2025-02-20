@@ -1,4 +1,6 @@
 import "./About.scss";
+import Image from "next/image";
+
 export default function About() {
   return (
     <>
@@ -6,7 +8,7 @@ export default function About() {
         <h1>About</h1>
         <div className="about-content">
           <div className="about-me">
-            <img src="/syati.webp" alt="syati" />
+            <Image src="/syati.webp" alt="profile" width={200} height={200} />
             <p className="about-me">井上翔人</p>
           </div>
           <p className="about-text">

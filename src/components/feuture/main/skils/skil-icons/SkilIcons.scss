@@ -1,0 +1,20 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* 自動で埋める */
+    grid-gap: 8px;
+    justify-items: center;
+    align-items: center;
+  
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  
+      p {
+        margin-top: 10px;
+        font-size: 14px;
+      }
+    }
+  }
+  

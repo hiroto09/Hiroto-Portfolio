@@ -103,14 +103,6 @@ export default function Three({ spheres }: AppProps) {
         scale={60}
         position={[0, -5, 0]}
       >
-        <RandomizedLight
-          amount={8}
-          radius={15}
-          ambient={0.5}
-          intensity={1}
-          position={[-5, 10, -5]}
-          size={20}
-        />
       </AccumulativeShadows>
       <Environment resolution={1024}>
         <group rotation={[-Math.PI / 3, 0, 0]}>

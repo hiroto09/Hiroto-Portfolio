@@ -4,11 +4,7 @@
   text-align: center;
   font-size: 1rem;
 
-  .about-content {
-    width: 70%;
-    padding: 20px;
-    margin: 30px auto 0;
-    background-color: rgba(213, 213, 213, 0.324);
+  .content {
     .about-me {
       display: flex;
       align-items: center;
@@ -25,11 +21,6 @@
       margin-top: 20px;
       font-size: 1rem;
       line-height: 1.5;
-    }
-  }
-  @media screen and (max-width: 1120px) {
-    .about-content {
-      width: 95%;
     }
   }
 }

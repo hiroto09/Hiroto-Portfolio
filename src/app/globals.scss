@@ -7,3 +7,14 @@
 ::-webkit-scrollbar{
     display: none;
 }
+.content{
+    background-color: rgba(255, 255, 255, 0.857);
+    width: 70%;
+    padding: 20px;
+    margin: 30px auto 0;
+}
+@media screen and (max-width: 1120px) {
+    .content {
+    width: 95%;
+    }
+}

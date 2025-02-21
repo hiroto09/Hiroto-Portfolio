@@ -1,6 +1,6 @@
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* 自動で埋める */
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     grid-gap: 8px;
     justify-items: center;
     align-items: center;

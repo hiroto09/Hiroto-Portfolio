@@ -1,3 +1,5 @@
+import "./AwardCard.scss";
+
 const AwardsMap = {
   kinokuni: {
     title: "きのくにICTプログラミングコンテスト",
@@ -52,14 +54,12 @@ export default function AwardCard() {
         const { title, award, date, work } = AwardsMap[awardKey];
 
         return (
-          <div key={awardKey} className="award-card">
-            <div className="award-main">
-              <p className="award-award">{award}</p>
-              <p className="award-title">{title}</p>
-            </div>
-            <div className="award-sub">
-              <p className="award-date">{date}</p>
-              <p className="award-work">{work}</p>
+          <div key={awardKey} className="award-list">
+            <div className="award-card">
+                <p className="award-award">{award}</p>
+                <p className="award-title">{title}</p>
+                <p className="award-date">{date}</p>
+                <p className="award-work">{work}</p>
             </div>
           </div>
         );

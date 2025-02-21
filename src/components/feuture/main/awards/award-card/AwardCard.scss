@@ -1,0 +1,54 @@
+.award-card{
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-gap: 5px;
+    text-align:left;
+    transition: 0.3s;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    &:hover{
+        padding: 30px;
+    }
+
+    .award-award{
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    .award-date{
+        font-size: 1rem;
+        font-weight: 500;
+    }
+    .award-title{
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+    .award-work{
+        font-size: 1rem;
+        font-weight: 500;
+    }
+}
+
+@media screen and (max-width: 1120px) {
+    .award-card{
+        grid-template-columns: 1fr 5fr;
+        .award-award{
+            font-size: 1.0rem;
+            font-weight: 600;
+        }
+        .award-date{
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .award-title{
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .award-work{
+            font-size: 1rem;
+            font-weight: 500;
+        }
+    }
+
+    
+}

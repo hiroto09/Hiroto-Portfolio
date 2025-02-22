@@ -198,8 +198,8 @@ function Orca(props: OrcaProps) {
 
   useFrame((state) => {
     if (orcaRef.current) {
-       const elapsedTime = state.clock.getElapsedTime();
-    scene.rotation.z = Math.sin(elapsedTime * 0.5);
+      const elapsedTime = state.clock.getElapsedTime();
+      scene.rotation.z = Math.sin(elapsedTime * 0.5);
     }
   });
 

@@ -14,7 +14,6 @@ export default function Main() {
       <Skills/>
       <Awards/>
       <Projects/>
-
     </>
   );
 }

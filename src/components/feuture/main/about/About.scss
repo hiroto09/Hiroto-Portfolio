@@ -1,0 +1,26 @@
+.content-title {
+  margin-top: 100px;
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+
+  .content {
+    .about-me {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 20px;
+      }
+    }
+    .about-text {
+      margin-top: 20px;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  }
+}

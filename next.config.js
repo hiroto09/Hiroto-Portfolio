@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {transpilePackages: ['three'],}
+const nextConfig = {
+  output: "export",
+  images: {
+    unoptimized: true,
+  },
+  transpilePackages: ["three"],
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

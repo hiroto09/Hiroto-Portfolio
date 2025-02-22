@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   useMask,
@@ -19,7 +19,7 @@ import * as THREE from "three";
 
 // モデルのプリロード
 useGLTF.preload("/shapes-transformed.glb");
-useGLTF.preload("shiro-syati.glb");
+useGLTF.preload("/shiro-syati.glb");
 
 interface AppProps {
   spheres: [number, string, number, [number, number, number]][];
@@ -48,7 +48,6 @@ export default function Three({ spheres }: AppProps) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-
       const newWidth = window.innerWidth;
       setAquariumPosition(newWidth <= 1120 ? [0, 0.25, 0] : [0, 0.25, -8]);
       windowWidth.current = newWidth;
@@ -63,7 +62,6 @@ export default function Three({ spheres }: AppProps) {
         }
         windowWidth.current = newWidth;
       };
-
       window.addEventListener("resize", handleResize);
       return () => {
         window.removeEventListener("resize", handleResize);
@@ -96,23 +94,12 @@ export default function Three({ spheres }: AppProps) {
         </Instances>
       </Aquarium>
       <AccumulativeShadows
-        temporal
-        frames={100}
-        color="lightblue"
-        colorBlend={2}
-        opacity={0.7}
+        color="#0000ff"
+        colorBlend={0.5}
+        opacity={0.5}
         scale={60}
         position={[0, -5, 0]}
-      >
-        <RandomizedLight
-          amount={8}
-          radius={15}
-          ambient={0.5}
-          intensity={1}
-          position={[-5, 10, -5]}
-          size={20}
-        />
-      </AccumulativeShadows>
+      ></AccumulativeShadows>
       <Environment resolution={1024}>
         <group rotation={[-Math.PI / 3, 0, 0]}>
           <Lightformer
@@ -121,13 +108,13 @@ export default function Three({ spheres }: AppProps) {
             position={[0, 5, -9]}
             scale={[10, 10, 1]}
           />
-          {[2, 0, 2, 0, 2, 0, 2, 0].map((x, i) => (
+          {Array.from({ length: 8 }, (_, i) => (
             <Lightformer
               key={i}
               form="circle"
               intensity={4}
               rotation={[Math.PI / 2, 0, 0]}
-              position={[x, 4, i * 4]}
+              position={[i % 2 === 0 ? 2 : 0, 4, i * 4]}
               scale={[4, 1, 1]}
             />
           ))}
@@ -154,16 +141,16 @@ function Aquarium({ children, ...props }: AquariumProps) {
   const { nodes } = useGLTF("/shapes-transformed.glb");
   const stencil = useMask(1, false);
 
-  useLayoutEffect(() => {
-    if (ref.current) {
-      ref.current.traverse((child) => {
-        const mesh = child as THREE.Mesh;
-        if (mesh.material) {
-          Object.assign(mesh.material, { ...stencil });
-        }
-      });
-    }
+  const applyStencil = useMemo(() => {
+    return (object: THREE.Object3D) => {
+      const mesh = object as THREE.Mesh;
+      if (mesh.material) Object.assign(mesh.material, { ...stencil });
+    };
   }, [stencil]);
+
+  useLayoutEffect(() => {
+    ref.current?.traverse(applyStencil);
+  }, [applyStencil]);
 
   return (
     <group {...props} dispose={null}>
@@ -205,9 +192,16 @@ function Sphere({
 }
 
 function Orca(props: OrcaProps) {
-  const { scene } = useGLTF("shiro-syati.glb");
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const scene = useMemo(() => useGLTF("shiro-syati.glb").scene, []);
+  const orcaRef = useRef<THREE.Object3D>(scene);
+
   useFrame((state) => {
-    scene.rotation.z = Math.sin(state.clock.elapsedTime) / 2;
+    if (orcaRef.current) {
+      const elapsedTime = state.clock.getElapsedTime();
+      scene.rotation.z = Math.sin(elapsedTime * 0.5);
+    }
   });
-  return <primitive object={scene} {...props} />;
+
+  return <primitive object={orcaRef.current} {...props} />;
 }

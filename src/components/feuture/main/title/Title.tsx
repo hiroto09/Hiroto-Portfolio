@@ -1,6 +1,6 @@
 import "./Title.scss";
 
-export const Title = () => {
+export default function Title () {
 
     return (
         <div className="titleArea">

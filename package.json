@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^12.0.0",
+    "@next/env": "^15.1.7",
     "@pmndrs/assets": "^1.7.0",
     "@pmndrs/branding": "^0.0.8",
     "@react-three/drei": "^9.121.5",

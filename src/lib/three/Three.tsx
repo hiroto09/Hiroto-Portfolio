@@ -62,7 +62,6 @@ export default function Three({ spheres }: AppProps) {
         }
         windowWidth.current = newWidth;
       };
-
       window.addEventListener("resize", handleResize);
       return () => {
         window.removeEventListener("resize", handleResize);

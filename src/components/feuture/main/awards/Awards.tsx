@@ -1,4 +1,3 @@
-import "./awards.scss";
 import AwardCard from "./award-card/AwardCard";
 
 export default function Awards() {

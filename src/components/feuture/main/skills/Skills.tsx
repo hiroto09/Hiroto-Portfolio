@@ -1,4 +1,3 @@
-import "./skills.scss";
 import SkillIcons from "@/components/feuture/main/skills/skill-icons/SkilIcons";
 
 export default function skills() {

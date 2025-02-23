@@ -1,13 +1,14 @@
 import AwardCard from "./award-card/AwardCard";
+import SectionLayout from "@/components/layouts/section/SectionLayout";
 
 export default function Awards() {
 
     return (
-        <div className="content-title">
-            <h1>Awards</h1>
-            <div className="content">
+        <>
+            <SectionLayout title="Awards">
                 <AwardCard />
-            </div>
-        </div>
+            </SectionLayout>
+        </>
+        
     )
 }

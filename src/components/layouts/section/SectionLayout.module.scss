@@ -1,0 +1,18 @@
+.content {
+  background-color: rgba(255, 255, 255, 0.857);
+  width: 80%;
+  padding: 20px;
+  margin: 30px auto 0;
+}
+
+.title {
+  margin-top: 100px;
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+@media screen and (max-width: 1120px) {
+  .content {
+    width: 95%;
+  }
+}

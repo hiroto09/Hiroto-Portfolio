@@ -1,13 +1,13 @@
 import  ProjectItems from "./project-items/ProjectItems"
+import SectionLayout from "@/components/layouts/section/SectionLayout";
 
 export default function Projects() {
 
   return (
-    <div className="content-title">
-      <h1>Projects</h1>
-      <div className="content">
-        <ProjectItems />
-      </div>
-    </div>
+    <>
+        <SectionLayout title="Projects">
+            <ProjectItems />
+        </SectionLayout>
+    </>
   );
 }

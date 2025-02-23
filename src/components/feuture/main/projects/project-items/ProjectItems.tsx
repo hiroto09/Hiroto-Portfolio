@@ -1,4 +1,5 @@
 import { client } from "@/libs/mcms/client";
+import Link from "next/link";
 
 export default async function ProjectItems() {
   const data = await client.get({
@@ -13,6 +14,9 @@ export default async function ProjectItems() {
         {data.contents.map((post: { id: string; title: string; content: string; eyecatch?: { url: string } }) => (
           <li key={post.id}>
             <h3>{post.title}</h3>
+            <Link href={`/post/${post.id}`}>
+              {post.title}
+            </Link>
             {post.eyecatch && (
               <img src={post.eyecatch.url} alt={post.title} style={{ maxWidth: "100%", height: "auto" }} />
             )}

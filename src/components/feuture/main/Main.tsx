@@ -1,4 +1,4 @@
-import ThreeArea from "@/lib//three/ThreeArea";
+import ThreeArea from "@/libs//three/ThreeArea";
 import Title from "@/components/feuture/main/title/Title";
 import About from "@/components/feuture/main/about/About"
 import Skills from "@/components/feuture/main/skills/Skills";

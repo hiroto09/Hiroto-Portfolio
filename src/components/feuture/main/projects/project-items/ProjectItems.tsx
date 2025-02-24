@@ -11,17 +11,26 @@ export default async function ProjectItems() {
   return (
     <main>
       <ul>
-        {data.contents.map((post: { id: string; title: string; content: string; eyecatch?: { url: string } }) => (
-          <li key={post.id}>
-            <h3>{post.title}</h3>
-            <Link href={`/post/${post.id}`}>
-              {post.title}
-            </Link>
-            {post.eyecatch && (
-              <img src={post.eyecatch.url} alt={post.title} style={{ maxWidth: "100%", height: "auto" }} />
-            )}
-          </li>
-        ))}
+        {data.contents.map(
+          (post: {
+            id: string;
+            title: string;
+            content: string;
+            eyecatch?: { url: string };
+          }) => (
+            <div key={post.id}>
+              <Link href={`/post/${post.id}`}>
+                {post.eyecatch && (
+                  <img
+                    src={post.eyecatch.url}
+                    alt={post.title}
+                    style={{ maxWidth: "30%", height: "auto" }}
+                  />
+                )}
+              </Link>
+            </div>
+          )
+        )}
       </ul>
     </main>
   );

@@ -7,7 +7,6 @@ export default function Projects() {
     <>
         <SectionLayout title="Projects">
             <ProjectItems />
-            aa
         </SectionLayout>
     </>
   );

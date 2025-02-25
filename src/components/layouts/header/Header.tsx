@@ -2,7 +2,7 @@ import Link from "next/link";
 import style from "./Header.module.scss";
 import Icon from "@/components/const/icons/Icon";
 
-export const Header = () => {
+export default function Header() {
   return (
     <header className={style.header}>
       <Link href="/" className={style.rootLink}>
@@ -21,4 +21,4 @@ export const Header = () => {
       </div>
     </header>
   );
-};
+}

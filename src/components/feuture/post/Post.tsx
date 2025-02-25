@@ -35,7 +35,7 @@ export default async function Post({ id }: PostProps): Promise<JSX.Element> {
             <img
               src={post.eyecatch.url}
               alt={post.title}
-              style={{ width: "100%", height: "auto" }}
+              style={{ width: "100%" }}
             />
           </div>
         )}

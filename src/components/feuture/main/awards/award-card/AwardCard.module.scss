@@ -1,5 +1,5 @@
-.award-list {
-  .award-card {
+.list {
+  .card {
     color: black;
     box-shadow: 0 0 2px rgba(200, 200, 200, 0.874);
     padding: 20px;
@@ -14,23 +14,23 @@
       padding: 30px;
       background-color:rgb(255, 255, 255) ;
     }
-    .award-type {
+    .type {
       font-size: 1.5rem;
       font-weight: 600;
     }
-    .award-date {
+    .date {
       font-size: 1rem;
       font-weight: 500;
     }
-    .award-title {
+    .title {
       font-size: 1.5rem;
       font-weight: 500;
     }
-    .award-work {
+    .work {
       font-size: 1rem;
       font-weight: 500;
     }
-    .award-arow {
+    .arow {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -45,21 +45,21 @@
 }
 
 @media screen and (max-width: 1120px) {
-  .award-list {
-    .award-card {
-      .award-type {
+  .list {
+    .card {
+      .type {
         font-size: 1rem;
         font-weight: 600;
       }
-      .award-date {
+      .date {
         font-size: 1rem;
         font-weight: 500;
       }
-      .award-title {
+      .title {
         font-size: 1rem;
         font-weight: 500;
       }
-      .award-work {
+      .work {
         font-size: 1rem;
         font-weight: 500;
       }

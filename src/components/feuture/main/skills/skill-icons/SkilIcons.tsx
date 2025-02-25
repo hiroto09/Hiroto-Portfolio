@@ -1,6 +1,6 @@
 import Icon from "@/components/const/icons/Icon";
 import { IconKeys, IconKeyType, IconMap } from "@/components/const/icons/Icon";
-import "./SkillIcons.scss"; 
+import style from "./SkillIcons.module.scss"; 
 
 export default function SkilIcons() {
   return (

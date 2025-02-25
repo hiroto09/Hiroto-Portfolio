@@ -5,7 +5,7 @@ export default function Projects() {
 
   return (
     <>
-        <SectionLayout title="Projects">
+        <SectionLayout title="Projects" background="none">
             <ProjectItems />
         </SectionLayout>
     </>

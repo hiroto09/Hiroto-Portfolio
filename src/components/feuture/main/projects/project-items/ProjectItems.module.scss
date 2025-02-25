@@ -1,0 +1,19 @@
+.projectItems {
+  display: flex;
+  justify-content: center;
+  .projectList {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 30px;
+    place-items: center;
+    .projectCard{
+
+        :hover
+        {
+            transform: scale(1.1);
+            transition: 0.5s;
+        }
+    }
+  }
+}

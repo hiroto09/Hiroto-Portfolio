@@ -24,7 +24,7 @@ export default async function ProjectItems() {
                 <img
                   src={post.eyecatch.url}
                   alt={post.title}
-                  style={{ maxWidth: "100%", height: "auto" }}
+                  style={{ maxWidth: "300px", height: "auto" }}
                 />
               )}
             </Link>

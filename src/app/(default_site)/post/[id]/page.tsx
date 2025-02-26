@@ -6,13 +6,12 @@ interface Params {
     id: string;
   };
 }
-
 export default function Page({ params }: Params) {
   return <Post id={params.id} />;
 }
 
 export const generateStaticParams = async () => {
-  const data = await client.get({ endpoint: "blogs" });
+  const data = await client.get({ endpoint: "blogs", queries: { fields: "id", limit: 100 }});
   return data.contents.map((post: { id: string }) => ({
     id: post.id,
   }));

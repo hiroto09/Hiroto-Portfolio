@@ -1,3 +1,5 @@
+"use client"; // 追加
+import { useEffect, useState } from "react";
 import { client } from "@/libs/mcms/client";
 import PostLayout from "@/components/layouts/post/PostLayout";
 import style from "./Post.module.scss";
@@ -11,17 +13,20 @@ interface PostType {
   id: string;
   title: string;
   content: string;
-  eyecatch?: {
-    url: string;
-  };
+  eyecatch?: { url: string };
 }
 
-export default async function Post({ id }: PostProps): Promise<JSX.Element> {
-  const data = await client.get({ endpoint: "blogs" });
+export default function Post({ id }: PostProps) {
+  const [post, setPost] = useState<PostType | null>(null);
 
-  const post: PostType | undefined = data.contents.find(
-    (post: PostType) => post.id === id
-  );
+  useEffect(() => {
+    async function fetchData() {
+      const data = await client.get({ endpoint: "blogs", queries: { limit: 100 } });
+      const foundPost = data.contents.find((post: PostType) => post.id === String(id));
+      setPost(foundPost || null);
+    }
+    fetchData();
+  }, [id]);
 
   if (!post) {
     return <div>投稿が見つかりませんでした。</div>;
@@ -30,7 +35,7 @@ export default async function Post({ id }: PostProps): Promise<JSX.Element> {
   return (
     <PostLayout>
       <div className={style.post}>
-      <h1 className={style.title}>{post.title}</h1>
+        <h1 className={style.title}>{post.title}</h1>
         {post.eyecatch && (
           <div className={style.eyecatch}>
             <Image
@@ -42,9 +47,7 @@ export default async function Post({ id }: PostProps): Promise<JSX.Element> {
             />
           </div>
         )}
-
         <div className={style.text} dangerouslySetInnerHTML={{ __html: post.content }} />
-
       </div>
     </PostLayout>
   );

@@ -14,7 +14,9 @@ interface PostCardProps {
   category?: string;
 }
 
-export default async function PostCard({ category }: PostCardProps): Promise<JSX.Element> {
+export default async function PostCard({
+  category,
+}: PostCardProps): Promise<JSX.Element> {
   try {
     const data = await client.get({
       endpoint: "blogs",
@@ -31,7 +33,9 @@ export default async function PostCard({ category }: PostCardProps): Promise<JSX
                   <Image
                     src={post.eyecatch.url}
                     alt={post.title}
-                    style={{ maxWidth: "300px", height: "auto" }}
+                    width={800}
+                    height={400}
+                    layout="responsive"
                   />
                 )}
               </Link>
@@ -42,6 +46,6 @@ export default async function PostCard({ category }: PostCardProps): Promise<JSX
     );
   } catch (error) {
     console.error("Failed to fetch posts:", error);
-    return <div>Failed to load posts.</div>; 
+    return <div>Failed to load posts.</div>;
   }
 }

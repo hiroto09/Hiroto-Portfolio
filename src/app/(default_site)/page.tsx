@@ -1,4 +1,4 @@
-import Main from "@/components/feuture/main/Main";
+import Main from "@/components/features/main/Main";
 export default function Page() {
   return (
     <>

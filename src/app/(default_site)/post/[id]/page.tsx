@@ -1,4 +1,4 @@
-import Post from "@/components/feuture/post/Post"
+import Post from "@/components/features/post/Post"
 import { client } from "@/libs/mcms/client";
 
 interface Params {

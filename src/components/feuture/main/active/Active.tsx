@@ -8,6 +8,5 @@ export default function Active() {
                 <PostCard category="active"/>
             </SectionLayout>
         </>
-        
     )
 }

@@ -1,6 +1,7 @@
 import style from "./PostCard.module.scss";
 import { client } from "@/libs/mcms/client";
 import Link from "next/link";
+import Image from "next/image";
 
 interface PostType {
   id: string;
@@ -27,7 +28,7 @@ export default async function PostCard({ category }: PostCardProps): Promise<JSX
             <div key={post.id} className={style.projectCard}>
               <Link href={`/post/${post.id}`}>
                 {post.eyecatch && (
-                  <img
+                  <Image
                     src={post.eyecatch.url}
                     alt={post.title}
                     style={{ maxWidth: "300px", height: "auto" }}

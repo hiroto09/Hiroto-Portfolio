@@ -13,56 +13,64 @@ import {
   MeshTransmissionMaterial,
 } from "@react-three/drei";
 import * as THREE from "three";
-import { ReactNode } from "react";
 
-interface AquariumProps {
-  children: ReactNode;
-  [key: string]: any;
-}
-
-interface AppProps {
-  spheres: [number, string, number, [number, number, number]][];
-}
-
-interface OrcaProps {
-  position?: [number, number, number];
-  rotation?: [number, number, number];
-  scale?: number;
-}
-interface SphereProps {
-  position: [number, number, number];
-  scale?: number;
-  speed?: number;
-  color?: string;
-}
 
 useGLTF.preload("/shapes-transformed.glb");
 useGLTF.preload("/shiro-syati.glb");
 
+interface AppProps {
+  spheres: [number, string, number, [number, number, number]][];
+}
+interface AquariumProps {
+  children: React.ReactNode;
+  position: [number, number, number];
+}
+interface SphereProps {
+  position: [number, number, number];
+  scale: number;
+  speed: number;
+  color: string;
+}
+interface OrcaProps {
+  position: [number, number, number];
+  rotation: [number, number, number];
+  scale: number;
+}
+
 export default function Three({ spheres }: AppProps) {
-  const [aquariumPosition, setAquariumPosition] = useState<[number, number, number]>([0, 0.25, 0]);
+  const [aquariumPosition, setAquariumPosition] = useState<
+    [number, number, number]
+  >([0, 0.25, 0]);
   const windowWidth = useRef<number | null>(null);
 
   useEffect(() => {
-    const handleResize = () => {
+    if (typeof window !== "undefined") {
       const newWidth = window.innerWidth;
       setAquariumPosition(newWidth <= 1120 ? [0, 0.25, 0] : [0, 0.25, -8]);
       windowWidth.current = newWidth;
-    };
 
-    if (typeof window !== "undefined") {
-      windowWidth.current = window.innerWidth;
-      handleResize();
+      const handleResize = () => {
+        const newWidth = window.innerWidth;
+        if (
+          (windowWidth.current! > 1120 && newWidth <= 1120) ||
+          (windowWidth.current! <= 1120 && newWidth > 1120)
+        ) {
+          setAquariumPosition(newWidth <= 1120 ? [0, 0.25, 0] : [0, 0.25, -8]);
+        }
+        windowWidth.current = newWidth;
+      };
       window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
     }
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
 
   return (
-    <Canvas shadows camera={{ position: [30, 9, 0], fov: 35, near: 1, far: 40 }}>
+    <Canvas
+      shadows
+      camera={{ position: [30, 9, 0], fov: 35, near: 1, far: 40 }}
+    >
       <color attach="background" args={["#f8fbff"]} />
       <Aquarium position={aquariumPosition}>
         <Float rotationIntensity={2} floatIntensity={10} speed={2}>
@@ -71,26 +79,59 @@ export default function Three({ spheres }: AppProps) {
         <Instances renderOrder={-1000}>
           <sphereGeometry args={[1, 64, 64]} />
           <meshBasicMaterial depthTest={false} />
-          {spheres.map(([scale, color, speed, position], index) => (
-            <Sphere key={index} scale={scale} color={color} speed={speed} position={position} />
-          ))}
+          {/* {spheres.map(([scale, color, speed, position], index) => (
+            <Sphere
+              key={index}
+              scale={scale}
+              color={color}
+              speed={speed}
+              position={position}
+            />
+          ))} */}
         </Instances>
       </Aquarium>
-
+      <AccumulativeShadows
+        color="#0000ff"
+        colorBlend={0.5}
+        opacity={0.5}
+        scale={60}
+        position={[0, -5, 0]}
+      ></AccumulativeShadows>
       <Environment resolution={1024}>
         <group rotation={[-Math.PI / 3, 0, 0]}>
-          <Lightformer intensity={4} rotation-x={Math.PI / 2} position={[0, 5, -9]} scale={[10, 10, 1]} />
+          <Lightformer
+            intensity={4}
+            rotation-x={Math.PI / 2}
+            position={[0, 5, -9]}
+            scale={[10, 10, 1]}
+          />
           {Array.from({ length: 8 }, (_, i) => (
-            <Lightformer key={i} form="circle" intensity={4} rotation={[Math.PI / 2, 0, 0]} position={[i % 2 === 0 ? 2 : 0, 4, i * 4]} scale={[4, 1, 1]} />
+            <Lightformer
+              key={i}
+              form="circle"
+              intensity={4}
+              rotation={[Math.PI / 2, 0, 0]}
+              position={[i % 2 === 0 ? 2 : 0, 4, i * 4]}
+              scale={[4, 1, 1]}
+            />
           ))}
-          <Lightformer intensity={2} rotation-y={Math.PI / 2} position={[-5, 1, -1]} scale={[50, 2, 1]} />
-          <Lightformer intensity={2} rotation-y={-Math.PI / 2} position={[10, 1, 0]} scale={[50, 2, 1]} />
+          <Lightformer
+            intensity={2}
+            rotation-y={Math.PI / 2}
+            position={[-5, 1, -1]}
+            scale={[50, 2, 1]}
+          />
+          <Lightformer
+            intensity={2}
+            rotation-y={-Math.PI / 2}
+            position={[10, 1, 0]}
+            scale={[50, 2, 1]}
+          />
         </group>
       </Environment>
     </Canvas>
   );
 }
-
 
 function Aquarium({ children, ...props }: AquariumProps) {
   const ref = useRef<THREE.Group>(null);
@@ -110,7 +151,11 @@ function Aquarium({ children, ...props }: AquariumProps) {
 
   return (
     <group {...props} dispose={null}>
-      <mesh castShadow scale={[3.66, 4.8, 5]} geometry={(nodes.Cube as THREE.Mesh).geometry}>
+      <mesh
+        castShadow
+        scale={[3.66, 4.8, 5]}
+        geometry={(nodes.Cube as THREE.Mesh).geometry}
+      >
         <MeshTransmissionMaterial
           backside
           samples={4}
@@ -130,8 +175,12 @@ function Aquarium({ children, ...props }: AquariumProps) {
   );
 }
 
-
-function Sphere({ position, scale = 1, speed = 0.1, color = "red" }: SphereProps) {
+function Sphere({
+  position,
+  scale = 1,
+  speed = 0.1,
+  color = "red",
+}: SphereProps) {
   return (
     <Float rotationIntensity={40} floatIntensity={20} speed={speed}>
       <Instance position={position} scale={scale} color={color} />
@@ -139,15 +188,15 @@ function Sphere({ position, scale = 1, speed = 0.1, color = "red" }: SphereProps
   );
 }
 
-
 function Orca(props: OrcaProps) {
-  const scene = useGLTF("shiro-syati.glb").scene;
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const scene = useMemo(() => useGLTF("shiro-syati.glb").scene, []);
   const orcaRef = useRef<THREE.Object3D>(scene);
 
   useFrame((state) => {
     if (orcaRef.current) {
       const elapsedTime = state.clock.getElapsedTime();
-      orcaRef.current.rotation.z = Math.sin(elapsedTime * 0.5);
+      scene.rotation.z = Math.sin(elapsedTime * 0.5);
     }
   });
 

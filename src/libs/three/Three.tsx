@@ -194,5 +194,12 @@ function Orca(props: OrcaProps) {
   const scene = useMemo(() => useGLTF("shiro-syati.glb").scene, []);
   const orcaRef = useRef<THREE.Object3D>(scene);
 
+  useFrame((state) => {
+    if (orcaRef.current) {
+      const elapsedTime = state.clock.getElapsedTime();
+      scene.rotation.z = Math.sin(elapsedTime * 0.5);
+    }
+  });
+
   return <primitive object={orcaRef.current} {...props} />;
 }

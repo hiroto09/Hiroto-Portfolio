@@ -17,9 +17,7 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
-// モデルのプリロード
-useGLTF.preload("/shapes-transformed.glb");
-useGLTF.preload("/shiro-syati.glb");
+
 
 interface AppProps {
   spheres: [number, string, number, [number, number, number]][];
@@ -77,7 +75,6 @@ export default function Three({ spheres }: AppProps) {
       <color attach="background" args={["#f8fbff"]} />
       <Aquarium position={aquariumPosition}>
         <Float rotationIntensity={2} floatIntensity={10} speed={2}>
-          <Orca position={[0, 0, -1]} rotation={[0, 1, 0]} scale={3} />
         </Float>
         <Instances renderOrder={-1000}>
           <sphereGeometry args={[1, 64, 64]} />
@@ -191,17 +188,17 @@ function Sphere({
   );
 }
 
-function Orca(props: OrcaProps) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const scene = useMemo(() => useGLTF("shiro-syati.glb").scene, []);
-  const orcaRef = useRef<THREE.Object3D>(scene);
+// function Orca(props: OrcaProps) {
+//   // eslint-disable-next-line react-hooks/rules-of-hooks
+//   //const scene = useMemo(() => useGLTF("shiro-syati.glb").scene, []);
+// // const orcaRef = useRef<THREE.Object3D>(scene);
 
-  useFrame((state) => {
-    if (orcaRef.current) {
-      const elapsedTime = state.clock.getElapsedTime();
-      scene.rotation.z = Math.sin(elapsedTime * 0.5);
-    }
-  });
+//   // useFrame((state) => {
+//   //   if (orcaRef.current) {
+//   //     const elapsedTime = state.clock.getElapsedTime();
+//   //     //scene.rotation.z = Math.sin(elapsedTime * 0.5);
+//   //   }
+//  // });
 
-  return <primitive object={orcaRef.current} {...props} />;
-}
+//   return <primitive object={orcaRef.current} {...props} />;
+// }

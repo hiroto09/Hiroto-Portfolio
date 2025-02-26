@@ -1,19 +1,18 @@
 "use client";
 import { useEffect, useLayoutEffect, useRef, useState, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame,useThree } from "@react-three/fiber";
 import {
   useMask,
   useGLTF,
   Float,
   Instance,
   Instances,
-} from "@react-three/drei";
-import {
   Lightformer,
   Environment,
   AccumulativeShadows,
   MeshTransmissionMaterial,
 } from "@react-three/drei";
+
 import * as THREE from "three";
 
 useGLTF.preload("/shapes-transformed.glb");
@@ -39,6 +38,7 @@ interface OrcaProps {
 }
 
 export default function Three({ spheres }: AppProps) {
+  const { camera } = useThree();
   const [aquariumPosition, setAquariumPosition] = useState<[number, number, number]>(
     [0, 0.25, 0]
   );
@@ -52,20 +52,32 @@ export default function Three({ spheres }: AppProps) {
 
       const handleResize = () => {
         const newWidth = window.innerWidth;
+        const newHeight = window.innerHeight;
+
         if (
           (windowWidth.current! > 1120 && newWidth <= 1120) ||
           (windowWidth.current! <= 1120 && newWidth > 1120)
         ) {
           setAquariumPosition(newWidth <= 1120 ? [0, 0.25, 0] : [0, 0.25, -8]);
         }
+
+        // スマホスクロール時の視点ズレ対策
+        if (newHeight !== window.innerHeight) {
+          camera.position.set(30, 9, 0);
+        }
+
         windowWidth.current = newWidth;
       };
+
       window.addEventListener("resize", handleResize);
+      window.addEventListener("orientationchange", handleResize);
+
       return () => {
         window.removeEventListener("resize", handleResize);
+        window.removeEventListener("orientationchange", handleResize);
       };
     }
-  }, []);
+  }, [camera]);
 
   return (
     <Canvas shadows camera={{ position: [30, 9, 0], fov: 35, near: 1, far: 40 }}>

@@ -21,15 +21,20 @@ export default function Post({ id }: PostProps) {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await client.get({ endpoint: "blogs", queries: { limit: 100 } });
-      const foundPost = data.contents.find((post: PostType) => post.id === String(id));
+      const data = await client.get({
+        endpoint: "blogs",
+        queries: { limit: 100 },
+      });
+      const foundPost = data.contents.find(
+        (post: PostType) => post.id === String(id)
+      );
       setPost(foundPost || null);
     }
     fetchData();
   }, [id]);
 
   if (!post) {
-    return <div>投稿が見つかりませんでした。</div>;
+    return <div></div>;
   }
 
   return (
@@ -47,7 +52,10 @@ export default function Post({ id }: PostProps) {
             />
           </div>
         )}
-        <div className={style.text} dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div
+          className={style.text}
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
       </div>
     </PostLayout>
   );

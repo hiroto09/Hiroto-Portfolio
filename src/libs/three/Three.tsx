@@ -38,9 +38,7 @@ interface OrcaProps {
 }
 
 export default function Three({ spheres }: AppProps) {
-  const [aquariumPosition, setAquariumPosition] = useState<
-    [number, number, number]
-  >([0, 0.25, 0]);
+  const [aquariumPosition, setAquariumPosition] = useState<[number, number, number]>([0, 0.25, 0]);
   const windowWidth = useRef<number | null>(null);
 
   useEffect(() => {
@@ -67,10 +65,7 @@ export default function Three({ spheres }: AppProps) {
   }, []);
 
   return (
-    <Canvas
-      shadows
-      camera={{ position: [30, 9, 0], fov: 35, near: 1, far: 40 }}
-    >
+    <Canvas shadows camera={{ position: [30, 9, 0], fov: 35, near: 1, far: 40 }}>
       <color attach="background" args={["#f8fbff"]} />
       <Aquarium position={aquariumPosition}>
         <Float rotationIntensity={2} floatIntensity={10} speed={2}>
@@ -80,13 +75,7 @@ export default function Three({ spheres }: AppProps) {
           <sphereGeometry args={[1, 64, 64]} />
           <meshBasicMaterial depthTest={false} />
           {spheres.map(([scale, color, speed, position], index) => (
-            <Sphere
-              key={index}
-              scale={scale}
-              color={color}
-              speed={speed}
-              position={position}
-            />
+            <Sphere key={index} scale={scale} color={color} speed={speed} position={position} />
           ))}
         </Instances>
       </Aquarium>
@@ -96,7 +85,7 @@ export default function Three({ spheres }: AppProps) {
         opacity={0.5}
         scale={60}
         position={[0, -5, 0]}
-      ></AccumulativeShadows>
+      />
       <Environment resolution={1024}>
         <group rotation={[-Math.PI / 3, 0, 0]}>
           <Lightformer
@@ -189,16 +178,7 @@ function Sphere({
 }
 
 function Orca(props: OrcaProps) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const scene = useMemo(() => useGLTF("shiro-syati.glb").scene, []);
+  const scene = useGLTF("shiro-syati.glb").scene;
   const orcaRef = useRef<THREE.Object3D>(scene);
-
-  useFrame((state) => {
-    if (orcaRef.current) {
-      const elapsedTime = state.clock.getElapsedTime();
-      scene.rotation.z = Math.sin(elapsedTime * 0.5);
-    }
-  });
-
   return <primitive object={orcaRef.current} {...props} />;
 }

@@ -1,7 +1,6 @@
 import { client } from "@/libs/mcms/client";
 import PostLayout from "@/components/layouts/post/PostLayout";
 import style from "./Post.module.scss";
-import Image from "next/image";
 
 interface PostProps {
   id: string;
@@ -33,7 +32,7 @@ export default async function Post({ id }: PostProps): Promise<JSX.Element> {
       <h1 className={style.title}>{post.title}</h1>
         {post.eyecatch && (
           <div className={style.eyecatch}>
-            <Image
+            <img
               src={post.eyecatch.url}
               alt={post.title}
               style={{ width: "100%" }}

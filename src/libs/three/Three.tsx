@@ -14,7 +14,7 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
-
+// モデルのプリロード
 useGLTF.preload("/shapes-transformed.glb");
 useGLTF.preload("/shiro-syati.glb");
 
@@ -79,7 +79,7 @@ export default function Three({ spheres }: AppProps) {
         <Instances renderOrder={-1000}>
           <sphereGeometry args={[1, 64, 64]} />
           <meshBasicMaterial depthTest={false} />
-          {/* {spheres.map(([scale, color, speed, position], index) => (
+          {spheres.map(([scale, color, speed, position], index) => (
             <Sphere
               key={index}
               scale={scale}
@@ -87,7 +87,7 @@ export default function Three({ spheres }: AppProps) {
               speed={speed}
               position={position}
             />
-          ))} */}
+          ))}
         </Instances>
       </Aquarium>
       <AccumulativeShadows

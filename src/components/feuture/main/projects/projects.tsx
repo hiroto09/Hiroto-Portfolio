@@ -1,12 +1,13 @@
+import PostCard from "@/components/const/post/PostCard"
+import SectionLayout from "@/components/layouts/section/SectionLayout";
 
 export default function Projects() {
 
-    return (
-        <div className="content-title">
-        <h1>Projects</h1>
-            <div className="content">
-            
-            </div>
-        </div>
-    )
+  return (
+    <>
+        <SectionLayout title="Projects" background="none">
+            <PostCard category="project"/>
+        </SectionLayout>
+    </>
+  );
 }

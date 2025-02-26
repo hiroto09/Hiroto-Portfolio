@@ -1,0 +1,24 @@
+.header {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(228, 228, 228, 0.324);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    top: 0px;
+    z-index: 100;
+  
+    .rootLink {
+      margin-left: 10px;
+      text-decoration: none;
+      color: black;
+    }
+  
+    .icons {
+      margin-left: auto;
+      margin-right: 10px;
+      display: flex;
+      gap: 10px;
+    }
+  }
+  

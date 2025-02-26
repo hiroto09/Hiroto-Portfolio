@@ -63,7 +63,7 @@ interface IconProps {
     iconKey: IconKeyType;
     color?: string;
     className?: string;
-    size?: number;
+    size?: number | string;
 }
 
 export default function Icon(props:IconProps):ReactElement {

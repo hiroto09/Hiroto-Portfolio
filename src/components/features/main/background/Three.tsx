@@ -230,7 +230,7 @@ function Table({ position }: { position: [number, number, number] }) {
 function Background() {
   const texture = useTexture("./books.webp");
   return (
-    <mesh position={[0, 0, -5]} rotation={[0, 0, 0]}> {/* z を -30 に変更 */}
+    <mesh position={[0, 2.5, -5]} rotation={[0, 0, 0]}> {/* z を -30 に変更 */}
       <planeGeometry args={[50, 30, 1]} /> {/* サイズを大きくして画面を覆う */}
       <meshStandardMaterial
         map={texture as THREE.Texture}

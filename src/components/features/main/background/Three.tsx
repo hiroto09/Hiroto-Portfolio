@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useLayoutEffect, useRef, useState, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas} from "@react-three/fiber";
 import {
   useMask,
   useGLTF,
@@ -11,6 +11,7 @@ import {
   Environment,
   AccumulativeShadows,
   MeshTransmissionMaterial,
+  Text
 } from "@react-three/drei";
 
 import * as THREE from "three";
@@ -94,7 +95,7 @@ export default function Three({ spheres }: AppProps) {
       <AccumulativeShadows
         color="#0000ff"
         colorBlend={0.5}
-        opacity={0.5}
+        opacity={0.1}
         scale={60}
         position={[0, -5, 0]}
       ></AccumulativeShadows>
@@ -193,6 +194,37 @@ function Orca(props: OrcaProps) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const scene = useMemo(() => useGLTF("shiro-syati.glb").scene, []);
   const orcaRef = useRef<THREE.Object3D>(scene);
+  const [showText, setShowText]  = useState<boolean>(false);
 
-  return <primitive object={orcaRef.current} {...props} />;
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowText(window.scrollY === 0); // 画面が一番上の時に true
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <group {...props}>
+    <primitive object={orcaRef.current} />
+    {showText && (
+      <group position={[0, 0.7, 0]}>
+        <mesh position={[0, 0, -0.01]}>
+          <planeGeometry args={[1.5, 0.4]} />
+          <meshBasicMaterial color="white" transparent opacity={1} />
+        </mesh>
+        <Text
+          fontSize={0.2}
+          color="black"
+          anchorX="center"
+          anchorY="middle"
+        >
+          こんにちわ！
+        </Text>
+      </group>
+    )}
+  </group>
+  );
 }

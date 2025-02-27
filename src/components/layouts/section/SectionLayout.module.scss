@@ -1,11 +1,12 @@
 .content {
   background-color: rgba(255, 255, 255, 0.674);
-  width: 80%;
+  width: 70%;
   padding: 20px;
   margin: 30px auto 0;
+  color:black
 }
 .none {
-  width: 80%;
+  width: 70%;
   padding: 20px;
   margin: 30px auto 0;
 }
@@ -15,13 +16,14 @@
   width: 100%;
   text-align: center;
   font-size: 1rem;
+  color: white;
 }
 
 @media screen and (max-width: 1120px) {
   .content {
-    width: 95%;
+    width: 80%;
   }
   .none {
-    width: 95%;
+    width: 80%;
   }
 }

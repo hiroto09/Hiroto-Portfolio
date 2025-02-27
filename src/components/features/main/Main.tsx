@@ -1,4 +1,4 @@
-import ThreeArea from "@/libs//three/ThreeArea";
+import ThreeArea from "@/components/features/main/background/ThreeArea";
 import Title from "@/components/features/main/title/Title";
 import About from "@/components/features/main/about/About"
 import Skills from "@/components/features/main/skills/Skills";
@@ -10,7 +10,6 @@ import Active from "./active/Active";
 export default function Main() {
   return (
     <>
-      
       <ThreeArea />
       <Title />
       <About />

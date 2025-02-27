@@ -12,7 +12,6 @@
 
 ## 開発環境のセットアップ
 
-### 1. リポジトリのクローン
 ```bash
 git clone git@github.com:hiroto09/Hiroto-Portfolio.git
 ```

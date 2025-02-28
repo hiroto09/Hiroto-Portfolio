@@ -32,7 +32,9 @@ export default async function PostCard({
               <div>
                 {post.eyecatch && (
                   <div className={style.book}>
-                    <h3 className={style.title}>{post.title}</h3>
+                    <div className={style.bookName}>
+                      <h3 className={style.title}>{post.title}</h3>
+                    </div>
                     <Image
                       src={post.eyecatch.url}
                       alt={post.title}

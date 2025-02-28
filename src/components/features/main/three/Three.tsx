@@ -2,7 +2,6 @@
 import React from "react";
 import { useEffect, useLayoutEffect, useRef, useState, useMemo } from "react";
 import { useAtom } from "jotai";
-import {HelloOrca} from "../../../const/atoms/ShiroSyati";
 import { Canvas} from "@react-three/fiber";
 import {
   useMask,
@@ -197,12 +196,10 @@ function Orca(props: OrcaProps) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const scene = useMemo(() => useGLTF("shiro-syati.glb").scene, []);
   const orcaRef = useRef<THREE.Object3D>(scene);
-  const [helloOrca] = useAtom(HelloOrca); 
 
   return (
     <group {...props}>
       <primitive object={orcaRef.current} />
-      {helloOrca && ( // グローバルステートがtrueなら表示
         <group position={[0, 0.7, 0]}>
           <mesh position={[0, 0, -0.01]}>
             <planeGeometry args={[1.5, 0.4]} />
@@ -212,7 +209,6 @@ function Orca(props: OrcaProps) {
             こんにちわ！
           </Text>
         </group>
-      )}
     </group>
   );
 }

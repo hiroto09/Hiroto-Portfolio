@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { useEffect, useLayoutEffect, useRef, useState, useMemo } from "react";
-import { useAtom } from "jotai";
 import { Canvas} from "@react-three/fiber";
 import {
   useMask,

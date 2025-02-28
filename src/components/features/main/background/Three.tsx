@@ -76,7 +76,7 @@ export default function Three({ spheres }: AppProps) {
       camera={{ position: [0, 5, 30], fov: 35, near: 1, far: 40 }}
     >
       <color attach="background" args={["#f0f0f0"]} />
-      <ambientLight intensity={0.8} />
+
       <Aquarium position={aquariumPosition}>
         <Float rotationIntensity={2} floatIntensity={2} speed={2}>
           <Orca position={[1, 0, -1]} rotation={[0, -0.5, 0]} scale={2.5} />
@@ -88,23 +88,18 @@ export default function Three({ spheres }: AppProps) {
       </Aquarium>
       <Table position={[0, 0, 0]} />
 
-      <Environment resolution={1024}>
+      <Environment resolution={512}>
         <group rotation={[-Math.PI / 3, 0, 0]}>
-          {Array.from({ length: 8 }, (_, i) => (
-            <Lightformer
-              key={i}
-              form="circle"
-              intensity={4}
-              rotation={[Math.PI / 2, 0, 0]}
-              position={[i % 2 === 0 ? 2 : 0, 4, i * 4]}
-              scale={[4, 1, 1]}
-            />
-          ))}
           <Lightformer
-            intensity={2}
+            intensity={1}
             rotation-y={Math.PI / 2}
-            position={[-5, 1, -1]}
-            scale={[50, 2, 1]}
+            position={[-1, 0, 0]}
+            scale={[10, 10, 10]}
+          />
+          <Lightformer
+            intensity={1}
+            position={[5, 0, -2]}
+            scale={[10, 10, 10]}
           />
         </group>
       </Environment>

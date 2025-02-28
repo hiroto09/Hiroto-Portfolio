@@ -78,21 +78,12 @@ export default function Three({ spheres }: AppProps) {
       <color attach="background" args={["#f0f0f0"]} />
       <ambientLight intensity={0.8} />
       <Aquarium position={aquariumPosition}>
-        <Float rotationIntensity={2} floatIntensity={10} speed={2}>
+        <Float rotationIntensity={2} floatIntensity={2} speed={2}>
           <Orca position={[1, 0, -1]} rotation={[0, -0.5, 0]} scale={2.5} />
         </Float>
         <Instances renderOrder={-1000}>
           <sphereGeometry args={[1, 64, 64]} />
           <meshBasicMaterial depthTest={false} />
-          {spheres.map(([scale, color, speed, position], index) => (
-            <Sphere
-              key={index}
-              scale={scale}
-              color={color}
-              speed={speed}
-              position={position}
-            />
-          ))}
         </Instances>
       </Aquarium>
       <Table position={[0, 0, 0]} />
@@ -141,7 +132,6 @@ function Aquarium({ children, ...props }: AquariumProps) {
   return (
     <group {...props} dispose={null}>
       <mesh
-        castShadow
         scale={[4, 4, 4]}
         geometry={(nodes.Cube as THREE.Mesh).geometry}
       >
@@ -161,19 +151,6 @@ function Aquarium({ children, ...props }: AquariumProps) {
       </mesh>
       <group ref={ref}>{children}</group>
     </group>
-  );
-}
-
-function Sphere({
-  position,
-  scale = 1,
-  speed = 0.1,
-  color = "red",
-}: SphereProps) {
-  return (
-    <Float rotationIntensity={40} floatIntensity={20} speed={speed}>
-      <Instance position={position} scale={scale} color={color} />
-    </Float>
   );
 }
 
@@ -215,7 +192,7 @@ function Table({ position }: { position: [number, number, number] }) {
   const woodTexture = useTexture("/wood.webp");
   return (
     <group position={position}>
-      <mesh position={[0, -5, 0]} receiveShadow castShadow>
+      <mesh position={[0, -5, 0]}>
         <boxGeometry args={[30, 2, 20]} /> {/* 幅8, 厚さ0.2, 奥行き6 */}
         <meshStandardMaterial
           map={woodTexture}

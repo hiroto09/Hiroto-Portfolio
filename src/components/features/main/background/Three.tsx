@@ -198,7 +198,7 @@ function Orca(props: OrcaProps) {
       <primitive object={orcaRef.current} />
       {showText && (
         <group position={[0, 0.7, 0]}>
-          <mesh position={[0, 0, -0.01]}>
+          <mesh position={[0, 0, 0]}>
             <planeGeometry args={[1.5, 0.4]} />
             <meshBasicMaterial color="white" transparent opacity={1} />
           </mesh>
@@ -230,12 +230,10 @@ function Table({ position }: { position: [number, number, number] }) {
 function Background() {
   const texture = useTexture("./books.webp");
   return (
-    <mesh position={[0, 2.5, -5]} rotation={[0, 0, 0]}> {/* z を -30 に変更 */}
-      <planeGeometry args={[50, 30, 1]} /> {/* サイズを大きくして画面を覆う */}
+    <mesh position={[0, 2.5, -5]} rotation={[0, 0, 0]}>
+      <planeGeometry args={[50, 30, 1]} />
       <meshStandardMaterial
-        map={texture as THREE.Texture}
-        depthTest={true} // 他のオブジェクトと衝突しないようにする
-        transparent
+        map={texture}
       />
     </mesh>
   );

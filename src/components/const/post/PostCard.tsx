@@ -32,13 +32,15 @@ export default async function PostCard({
               <div>
                 {post.eyecatch && (
                   <div className={style.book}>
+                    <h3 className={style.title}>{post.title}</h3>
                     <Image
                       src={post.eyecatch.url}
                       alt={post.title}
-                      width={400}
-                      height={200}
+                      className={style.bookImg}
+                      width={100}
+                      height={100}
                       layout="responsive"
-                      style={{ borderRadius: "4px 4px 0px 0px " }}
+                      style={{ borderRadius: "0px 0px 4px 4px " }}
                     />
                   </div>
                 )}

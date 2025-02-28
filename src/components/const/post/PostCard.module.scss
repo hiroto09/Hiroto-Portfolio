@@ -8,31 +8,48 @@
     grid-gap: 50px;
     place-items: center;
     .projectCard {
-      width: 180px; /* 本の幅 */
+      width: 250px;
       position: relative;
       box-shadow: 10px 15px 22px -5px rgba(0, 0, 0, 0.8);
-      border-radius: 4px; /* 角丸にすると本らしさが出る */
+      border-radius: 4px;
       .book {
         display: block;
-        width: 100%; /* 親要素の幅に合うように */
-        height: 250px;
+        width: 100%;
+        height: 350px;
         background-image: url("/book.webp");
-        border-radius: 4px; /* 親要素に対してoverflowを使うとバグるブラウザがあるので、画像自体にもborder-radiusを適用する */
+        border-radius: 4px;
+        position: relative; // ← 追加
         transition: 0.5s;
+
         &:hover {
           transform: translateY(-5px);
         }
+        .title{
+          font-family: "Brush Script MT", "Lucida Handwriting", cursive;
+          width: 100%;
+          position: absolute;
+          top: 25%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          text-align: center;
+          font-weight: 300;
+          color: #2a0606;
+        }
+        .bookImg {
+          position: absolute;
+          left:0px;
+          bottom: 0;
+          width: 100%;
+        }
       }
     }
-    /* 疑似要素で光沢演出のためのカバーを画像に重ねる */
     .book:after {
       content: "";
-      position: absolute; /* 親要素に重なるように */
+      position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
-      /* 👇白の透明度を調整したグラデーション */
       background: linear-gradient(
         -90deg,
         rgba(21, 20, 20, 0) 0%,

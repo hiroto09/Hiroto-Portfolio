@@ -7,14 +7,41 @@
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-gap: 15px;
     place-items: center;
-    .projectCard{
-
-        :hover
-        {
-            filter: brightness(0.8);
-            scale: 1.05;
-            transition: 0.5s;
+    .projectCard {
+      width: 180px; /* 本の幅 */
+      position: relative;
+      box-shadow: 10px 15px 22px -5px rgba(0, 0, 0, 0.8);
+      border-radius: 4px; /* 角丸にすると本らしさが出る */
+      .book {
+        display: block;
+        width: 100%; /* 親要素の幅に合うように */
+        height: 250px;
+        background-image: url("/book.webp");
+        border-radius: 4px; /* 親要素に対してoverflowを使うとバグるブラウザがあるので、画像自体にもborder-radiusを適用する */
+        transition: 0.5s;
+        &:hover {
+          transform: translateY(-5px); /* ホバー時に浮き上がる */
         }
+      }
+    }
+    /* 疑似要素で光沢演出のためのカバーを画像に重ねる */
+    .book:after {
+      content: "";
+      position: absolute; /* 親要素に重なるように */
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      /* 👇白の透明度を調整したグラデーション */
+      background: linear-gradient(
+        -90deg,
+        rgba(21, 20, 20, 0) 0%,
+        rgba(0, 0, 0, 0.1) 93%,
+        rgba(55, 55, 55, 0.27) 96%,
+        rgba(198, 191, 191, 0.416) 97%,
+        rgba(0, 0, 0, 0.229) 100%
+      );
+      pointer-events: none; /* これを追加 */
     }
   }
 }

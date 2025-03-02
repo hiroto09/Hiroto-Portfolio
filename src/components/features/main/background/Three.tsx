@@ -74,6 +74,7 @@ export default function Three({ spheres }: AppProps) {
     <Canvas
       shadows
       camera={{ position: [0, 5, 30], fov: 35, near: 1, far: 40 }}
+      style = {{height: "100dvh"}}
     >
       <color attach="background" args={["#f0f0f0"]} />
 

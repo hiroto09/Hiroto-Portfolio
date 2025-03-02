@@ -14,6 +14,19 @@ body {
   background-position: bottom;
   background-attachment: fixed;
 }
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/wood.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  z-index: -1;
+}
 canvas {
   position: fixed;
   top: 0;

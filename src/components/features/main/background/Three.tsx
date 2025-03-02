@@ -73,13 +73,16 @@ export default function Three({ spheres }: AppProps) {
 
   useEffect(() => {
     const updateHeight = () => {
-      const newHeight = window.innerHeight;
-      document.documentElement.style.setProperty("--vh", `${newHeight}px`);
+      if (CSS.supports("height", "100lvh")) {
+        document.documentElement.style.setProperty("--vh", "100lvh");
+      } else {
+        document.documentElement.style.setProperty("--vh", `${window.innerHeight}px`);
+      }
     };
-
+  
     updateHeight();
     window.addEventListener("resize", updateHeight);
-
+    
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
 

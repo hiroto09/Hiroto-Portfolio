@@ -17,6 +17,7 @@ import {
 
 import * as THREE from "three";
 import { url } from "inspector";
+import { set } from "lodash";
 
 // モデルのプリロード
 useGLTF.preload("/shapes-transformed.glb");
@@ -70,11 +71,23 @@ export default function Three({ spheres }: AppProps) {
     }
   }, []);
 
+  useEffect(() => {
+    const updateHeight = () => {
+      const newHeight = window.innerHeight;
+      document.documentElement.style.setProperty("--vh", `${newHeight}px`);
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
+
   return (
     <Canvas
       shadows
       camera={{ position: [0, 5, 30], fov: 35, near: 1, far: 40 }}
-      style = {{height: "100lvh"}}
+      style={{ height: "var(--vh)" }}
     >
       <color attach="background" args={["#f0f0f0"]} />
 
@@ -104,7 +117,7 @@ export default function Three({ spheres }: AppProps) {
           />
         </group>
       </Environment>
-      <Background/>
+      <Background />
     </Canvas>
   );
 }
@@ -127,10 +140,7 @@ function Aquarium({ children, ...props }: AquariumProps) {
 
   return (
     <group {...props} dispose={null}>
-      <mesh
-        scale={[4, 4, 4]}
-        geometry={(nodes.Cube as THREE.Mesh).geometry}
-      >
+      <mesh scale={[4, 4, 4]} geometry={(nodes.Cube as THREE.Mesh).geometry}>
         <MeshTransmissionMaterial
           backside
           samples={4}
@@ -205,9 +215,7 @@ function Background() {
   return (
     <mesh position={[0, 2.5, -5]} rotation={[0, 0, 0]}>
       <planeGeometry args={[50, 30, 1]} />
-      <meshStandardMaterial
-        map={texture}
-      />
+      <meshStandardMaterial map={texture} />
     </mesh>
   );
 }

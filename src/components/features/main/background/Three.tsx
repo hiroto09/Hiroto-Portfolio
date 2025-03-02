@@ -70,11 +70,26 @@ export default function Three({ spheres }: AppProps) {
     }
   }, []);
 
+  const [height, setHeight] = useState("100dvh");
+
+  useEffect(() => {
+    // 初期サイズ設定
+    setHeight("100dvh");
+
+    // リサイズ時に高さを調整
+    const handleResize = () => {
+      setHeight("100dvh");
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <Canvas
       shadows
       camera={{ position: [0, 5, 30], fov: 35, near: 1, far: 40 }}
-      style = {{height: "100dvh"}}
+      style = {{height: height}}
     >
       <color attach="background" args={["#f0f0f0"]} />
 

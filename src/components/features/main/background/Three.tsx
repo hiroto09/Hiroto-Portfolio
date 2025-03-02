@@ -90,7 +90,6 @@ export default function Three({ spheres }: AppProps) {
     <Canvas
       shadows
       camera={{ position: [0, 5, 30], fov: 35, near: 1, far: 40 }}
-      style={{ height: "var(--vh)" }}
     >
       <Aquarium position={aquariumPosition}>
         <Float rotationIntensity={2} floatIntensity={2} speed={2}>

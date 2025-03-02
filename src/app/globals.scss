@@ -7,13 +7,6 @@
 ::-webkit-scrollbar {
   display: none;
 }
-body {
-  background-image: url("/wood.webp");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-attachment: fixed;
-}
 body::before {
   content: "";
   position: fixed;

@@ -70,33 +70,11 @@ export default function Three({ spheres }: AppProps) {
     }
   }, []);
 
-  const [height, setHeight] = useState("100dvh");
-
-  useEffect(() => {
-    const updateHeight = () => {
-      if (navigator.userAgent.includes("Mobi")) {
-        // モバイル環境なら URL バー込みの高さを取得
-        const viewportHeight = window.visualViewport?.height || window.innerHeight;
-        setHeight(`${viewportHeight}px`);
-      } else {
-        // Web（PC）環境なら 100dvh
-        setHeight("100dvh");
-      }
-    };
-  
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-  
-    return () => window.removeEventListener("resize", updateHeight);
-  }, []);
-  
-  
-
   return (
     <Canvas
       shadows
       camera={{ position: [0, 5, 30], fov: 35, near: 1, far: 40 }}
-      style={{ height: height }}
+      style = {{height: "100lvh"}}
     >
       <color attach="background" args={["#f0f0f0"]} />
 
@@ -126,7 +104,7 @@ export default function Three({ spheres }: AppProps) {
           />
         </group>
       </Environment>
-      <Background />
+      <Background/>
     </Canvas>
   );
 }
@@ -149,7 +127,10 @@ function Aquarium({ children, ...props }: AquariumProps) {
 
   return (
     <group {...props} dispose={null}>
-      <mesh scale={[4, 4, 4]} geometry={(nodes.Cube as THREE.Mesh).geometry}>
+      <mesh
+        scale={[4, 4, 4]}
+        geometry={(nodes.Cube as THREE.Mesh).geometry}
+      >
         <MeshTransmissionMaterial
           backside
           samples={4}
@@ -224,7 +205,9 @@ function Background() {
   return (
     <mesh position={[0, 2.5, -5]} rotation={[0, 0, 0]}>
       <planeGeometry args={[50, 30, 1]} />
-      <meshStandardMaterial map={texture} />
+      <meshStandardMaterial
+        map={texture}
+      />
     </mesh>
   );
 }

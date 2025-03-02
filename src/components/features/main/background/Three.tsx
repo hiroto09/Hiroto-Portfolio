@@ -92,19 +92,12 @@ export default function Three({ spheres }: AppProps) {
       camera={{ position: [0, 5, 30], fov: 35, near: 1, far: 40 }}
       style={{ height: "var(--vh)" }}
     >
-      <color attach="background" args={["#f0f0f0"]} />
-
       <Aquarium position={aquariumPosition}>
         <Float rotationIntensity={2} floatIntensity={2} speed={2}>
           <Orca position={[1, 0, -1]} rotation={[0, -0.5, 0]} scale={2.5} />
         </Float>
-        <Instances renderOrder={-1000}>
-          <sphereGeometry args={[1, 64, 64]} />
-          <meshBasicMaterial depthTest={false} />
-        </Instances>
       </Aquarium>
       <Table position={[0, 0, 0]} />
-
       <Environment resolution={512}>
         <group rotation={[-Math.PI / 3, 0, 0]}>
           <Lightformer

@@ -11,4 +11,7 @@ body {
   font-family: "Noto Sans JP", sans-serif;
   background-image: url("/wood.webp");
   background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
 }

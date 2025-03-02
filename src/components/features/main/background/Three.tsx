@@ -73,8 +73,10 @@ export default function Three({ spheres }: AppProps) {
   const [height, setHeight] = useState("100dvh");
 
   useEffect(() => {
-    setHeight(`${window.innerHeight}px`); // 初回レンダリング時の高さで固定
+    const initialHeight = window.visualViewport?.height || window.innerHeight;
+    setHeight(`${initialHeight}px`); // 初回の視覚的な高さを固定
   }, []);
+  
 
   return (
     <Canvas

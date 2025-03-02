@@ -73,9 +73,23 @@ export default function Three({ spheres }: AppProps) {
   const [height, setHeight] = useState("100dvh");
 
   useEffect(() => {
-    const initialHeight = window.visualViewport?.height || window.innerHeight;
-    setHeight(`${initialHeight}px`); // 初回の視覚的な高さを固定
+    const updateHeight = () => {
+      if (navigator.userAgent.includes("Mobi")) {
+        // モバイル環境なら URL バー込みの高さを取得
+        const viewportHeight = window.visualViewport?.height || window.innerHeight;
+        setHeight(`${viewportHeight}px`);
+      } else {
+        // Web（PC）環境なら 100dvh
+        setHeight("100dvh");
+      }
+    };
+  
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+  
+    return () => window.removeEventListener("resize", updateHeight);
   }, []);
+  
   
 
   return (

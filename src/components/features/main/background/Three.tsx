@@ -73,23 +73,14 @@ export default function Three({ spheres }: AppProps) {
   const [height, setHeight] = useState("100dvh");
 
   useEffect(() => {
-    // 初期サイズ設定
-    setHeight("100dvh");
-
-    // リサイズ時に高さを調整
-    const handleResize = () => {
-      setHeight("100dvh");
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    setHeight(`${window.innerHeight}px`); // 初回レンダリング時の高さで固定
   }, []);
 
   return (
     <Canvas
       shadows
       camera={{ position: [0, 5, 30], fov: 35, near: 1, far: 40 }}
-      style = {{height: height}}
+      style={{ height: height }}
     >
       <color attach="background" args={["#f0f0f0"]} />
 
@@ -119,7 +110,7 @@ export default function Three({ spheres }: AppProps) {
           />
         </group>
       </Environment>
-      <Background/>
+      <Background />
     </Canvas>
   );
 }
@@ -142,10 +133,7 @@ function Aquarium({ children, ...props }: AquariumProps) {
 
   return (
     <group {...props} dispose={null}>
-      <mesh
-        scale={[4, 4, 4]}
-        geometry={(nodes.Cube as THREE.Mesh).geometry}
-      >
+      <mesh scale={[4, 4, 4]} geometry={(nodes.Cube as THREE.Mesh).geometry}>
         <MeshTransmissionMaterial
           backside
           samples={4}
@@ -220,9 +208,7 @@ function Background() {
   return (
     <mesh position={[0, 2.5, -5]} rotation={[0, 0, 0]}>
       <planeGeometry args={[50, 30, 1]} />
-      <meshStandardMaterial
-        map={texture}
-      />
+      <meshStandardMaterial map={texture} />
     </mesh>
   );
 }

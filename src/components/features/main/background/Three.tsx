@@ -5,36 +5,23 @@ import {
   useMask,
   useGLTF,
   Float,
-  Instance,
-  Instances,
   Lightformer,
   Environment,
-  AccumulativeShadows,
   MeshTransmissionMaterial,
   Text,
   useTexture,
 } from "@react-three/drei";
 
 import * as THREE from "three";
-import { url } from "inspector";
-import { set } from "lodash";
+import style from "./Three.module.scss";
 
 // モデルのプリロード
 useGLTF.preload("/shapes-transformed.glb");
 useGLTF.preload("/shiro-syati.glb");
 
-interface AppProps {
-  spheres: [number, string, number, [number, number, number]][];
-}
 interface AquariumProps {
   children: React.ReactNode;
   position: [number, number, number];
-}
-interface SphereProps {
-  position: [number, number, number];
-  scale: number;
-  speed: number;
-  color: string;
 }
 interface OrcaProps {
   position: [number, number, number];
@@ -42,7 +29,7 @@ interface OrcaProps {
   scale: number;
 }
 
-export default function Three({ spheres }: AppProps) {
+export default function Three(){
   const [aquariumPosition, setAquariumPosition] = useState<
     [number, number, number]
   >([0, 0.25, 0]);
@@ -71,25 +58,13 @@ export default function Three({ spheres }: AppProps) {
     }
   }, []);
 
-  useEffect(() => {
-    const updateHeight = () => {
-      if (CSS.supports("height", "100lvh")) {
-        document.documentElement.style.setProperty("--vh", "100lvh");
-      } else {
-        document.documentElement.style.setProperty("--vh", `${window.innerHeight}px`);
-      }
-    };
-  
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    
-    return () => window.removeEventListener("resize", updateHeight);
-  }, []);
 
   return (
+    <div className={style.canvas}>
     <Canvas
       shadows
       camera={{ position: [0, 5, 30], fov: 35, near: 1, far: 40 }}
+      style = {{height: "100vh"}}
     >
       <Aquarium position={aquariumPosition}>
         <Float rotationIntensity={2} floatIntensity={2} speed={2}>
@@ -114,6 +89,7 @@ export default function Three({ spheres }: AppProps) {
       </Environment>
       <Background />
     </Canvas>
+  </div>
   );
 }
 
@@ -140,14 +116,7 @@ function Aquarium({ children, ...props }: AquariumProps) {
           backside
           samples={4}
           thickness={1.5}
-          chromaticAberration={0.025}
-          anisotropy={0.1}
-          distortion={0.1}
           distortionScale={0.1}
-          temporalDistortion={0.2}
-          iridescence={1}
-          iridescenceIOR={1}
-          iridescenceThicknessRange={[0, 1400]}
         />
       </mesh>
       <group ref={ref}>{children}</group>

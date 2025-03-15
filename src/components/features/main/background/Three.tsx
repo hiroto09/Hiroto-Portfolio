@@ -15,10 +15,6 @@ import {
 import * as THREE from "three";
 import style from "./Three.module.scss";
 
-// モデルのプリロード
-useGLTF.preload("/shapes-transformed.glb");
-useGLTF.preload("/shiro-syati.glb");
-
 interface AquariumProps {
   children: React.ReactNode;
   position: [number, number, number];
@@ -29,7 +25,11 @@ interface OrcaProps {
   scale: number;
 }
 
-export default function Three(){
+// モデルのプリロード
+useGLTF.preload("/shapes-transformed.glb");
+useGLTF.preload("/shiro-syati.glb");
+
+export default function Three() {
   const [aquariumPosition, setAquariumPosition] = useState<
     [number, number, number]
   >([0, 0.25, 0]);
@@ -58,38 +58,37 @@ export default function Three(){
     }
   }, []);
 
-
   return (
     <div className={style.canvas}>
-    <Canvas
-      shadows
-      camera={{ position: [0, 5, 30], fov: 35, near: 1, far: 40 }}
-      style = {{height: "100vh"}}
-    >
-      <Aquarium position={aquariumPosition}>
-        <Float rotationIntensity={2} floatIntensity={2} speed={2}>
-          <Orca position={[1, 0, -1]} rotation={[0, -0.5, 0]} scale={2.5} />
-        </Float>
-      </Aquarium>
-      <Table position={[0, 0, 0]} />
-      <Environment resolution={512}>
-        <group rotation={[-Math.PI / 3, 0, 0]}>
-          <Lightformer
-            intensity={1}
-            rotation-y={Math.PI / 2}
-            position={[-1, 0, 0]}
-            scale={[10, 10, 10]}
-          />
-          <Lightformer
-            intensity={1}
-            position={[5, 0, -2]}
-            scale={[10, 10, 10]}
-          />
-        </group>
-      </Environment>
-      <Background />
-    </Canvas>
-  </div>
+      <Canvas
+        shadows
+        camera={{ position: [0, 5, 30], fov: 35, near: 1, far: 40 }}
+        style={{ height: "100vh" }}
+      >
+        <Aquarium position={aquariumPosition}>
+          <Float rotationIntensity={2} floatIntensity={2} speed={3}>
+            <Orca position={[1, 0, -1]} rotation={[0, -0.5, 0]} scale={2.5} />
+          </Float>
+        </Aquarium>
+        <Table position={[0, 0, 0]} />
+        <Environment resolution={512}>
+          <group rotation={[-Math.PI / 3, 0, 0]}>
+            <Lightformer
+              intensity={1}
+              rotation-y={Math.PI / 2}
+              position={[-1, 0, 0]}
+              scale={[10, 10, 10]}
+            />
+            <Lightformer
+              intensity={1}
+              position={[5, 0, -2]}
+              scale={[10, 10, 10]}
+            />
+          </group>
+        </Environment>
+        <Background />
+      </Canvas>
+    </div>
   );
 }
 
@@ -113,10 +112,11 @@ function Aquarium({ children, ...props }: AquariumProps) {
     <group {...props} dispose={null}>
       <mesh scale={[4, 4, 4]} geometry={(nodes.Cube as THREE.Mesh).geometry}>
         <MeshTransmissionMaterial
-          backside
+
           samples={4}
           thickness={1.5}
           distortionScale={0.1}
+          ior={1.25}
         />
       </mesh>
       <group ref={ref}>{children}</group>
@@ -132,7 +132,7 @@ function Orca(props: OrcaProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowText(window.scrollY === 0); // 画面が一番上の時に true
+      setShowText(window.scrollY === 0);
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -145,11 +145,7 @@ function Orca(props: OrcaProps) {
       <primitive object={orcaRef.current} />
       {showText && (
         <group position={[0, 0.7, 0]}>
-          <mesh position={[0, 0, 0]}>
-            <planeGeometry args={[1.5, 0.4]} />
-            <meshBasicMaterial color="white" transparent opacity={1} />
-          </mesh>
-          <Text fontSize={0.2} color="black" anchorX="center" anchorY="middle">
+          <Text fontSize={0.2} color="white" anchorX="center" anchorY="middle">
             こんにちわ！
           </Text>
         </group>

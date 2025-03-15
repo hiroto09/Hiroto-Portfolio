@@ -8,15 +8,17 @@
     grid-gap: 50px;
     place-items: center;
     .projectCard {
-      width: 250px;
+      margin: 0 auto;
+      width: 80%;
       position: relative;
       border-radius: 4px;
       .book {
-        display: block;
-        width: 90%;
+        display: grid;
+        place-items: center;
+        width: 100%;
         height: 320px;
         border-radius: 4px;
-        position: relative; // ← 追加
+        position: relative;
         transition: 0.5s;
         color: #2a0606a1;
         box-shadow: 0 3px 4px 0px rgba(0, 0, 0, 0.404);

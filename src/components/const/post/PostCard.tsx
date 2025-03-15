@@ -29,7 +29,6 @@ export default async function PostCard({
           {data.contents.map((post: PostType) => (
             <div key={post.id} className={style.projectCard}>
               <Link href={`/post/${post.id}`} style={{ textDecoration: "none" }}>
-              <div>
                 {post.eyecatch && (
                   <div className={style.book}>
                     <div className={style.bookName}>
@@ -46,7 +45,6 @@ export default async function PostCard({
                     />
                   </div>
                 )}
-                </div>
               </Link>
             </div>
           ))}

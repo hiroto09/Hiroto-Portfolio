@@ -1,18 +1,29 @@
-import Post from "@/components/features/post/Post"
 import { client } from "@/libs/mcms/client";
+import Post from "@/components/features/post/Post";
 
-interface Params {
+interface Props {
   params: {
     id: string;
   };
 }
-export default function Page({ params }: Params) {
-  return <Post id={params.id} />;
+
+export async function generateStaticParams() {
+  const data = await client.get({ endpoint: "blogs", queries: { fields: "id", limit: 100 } });
+
+  return data.contents.map((post: { id: string }) => ({
+    id: post.id, // 必ず `params` のキーにする
+  }));
 }
 
-export const generateStaticParams = async () => {
-  const data = await client.get({ endpoint: "blogs", queries: { fields: "id", limit: 100 }});
-  return data.contents.map((post: { id: string }) => ({
-    id: post.id,
-  }));
-};
+export default async function Page({ params }: Props) {
+  const post = await client.get({
+    endpoint: "blogs",
+    contentId: params.id, // contentId で個別記事を取得
+  });
+
+  if (!post) {
+    return <div>記事が見つかりません</div>;
+  }
+
+  return <Post post={post} />;
+}

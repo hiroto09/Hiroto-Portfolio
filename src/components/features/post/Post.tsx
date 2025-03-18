@@ -1,12 +1,11 @@
-"use client"; // 追加
-import { useEffect, useState } from "react";
-import { client } from "@/libs/mcms/client";
-import PostLayout from "@/components/layouts/post/PostLayout";
-import style from "./Post.module.scss";
-import Image from "next/image";
+import { GetStaticProps, GetStaticPaths } from 'next';
+import { client } from '@/libs/mcms/client';
+import PostLayout from '@/components/layouts/post/PostLayout';
+import style from './Post.module.scss';
+import Image from 'next/image';
 
 interface PostProps {
-  id: string;
+  post: PostType;
 }
 
 interface PostType {
@@ -16,25 +15,9 @@ interface PostType {
   eyecatch?: { url: string };
 }
 
-export default function Post({ id }: PostProps) {
-  const [post, setPost] = useState<PostType | null>(null);
-
-  useEffect(() => {
-    async function fetchData() {
-      const data = await client.get({
-        endpoint: "blogs",
-        queries: { limit: 100 },
-      });
-      const foundPost = data.contents.find(
-        (post: PostType) => post.id === String(id)
-      );
-      setPost(foundPost || null);
-    }
-    fetchData();
-  }, [id]);
-
+export default function Post({ post }: PostProps) {
   if (!post) {
-    return <div></div>;
+    return <div>Loading...</div>; // 事前生成されていない場合
   }
 
   return (

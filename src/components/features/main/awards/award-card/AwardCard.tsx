@@ -1,4 +1,3 @@
-import { url } from "inspector";
 import style from "./AwardCard.module.scss";
 import Link from "next/link";
 

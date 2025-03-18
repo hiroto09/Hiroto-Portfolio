@@ -1,5 +1,3 @@
-import { GetStaticProps, GetStaticPaths } from 'next';
-import { client } from '@/libs/mcms/client';
 import PostLayout from '@/components/layouts/post/PostLayout';
 import style from './Post.module.scss';
 import Image from 'next/image';
@@ -37,7 +35,7 @@ export default function Post({ post }: PostProps) {
         )}
         <div
           className={style.text}
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: post.content || ''}}
         />
       </div>
     </PostLayout>

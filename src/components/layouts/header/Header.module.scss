@@ -1,7 +1,6 @@
 .header {
     width: 100%;
     padding: 10px;
-    background-color: rgba(228, 228, 228, 0.324);
     position: fixed;
     display: flex;
     align-items: center;
@@ -11,7 +10,7 @@
     .rootLink {
       margin-left: 10px;
       text-decoration: none;
-      color: black;
+      color: rgb(255, 255, 255);
     }
   
     .icons {

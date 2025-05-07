@@ -26,6 +26,7 @@ import {
     SiInstagram,
     SiHono,
     SiVitest,
+    SiTestinglibrary,
 } from "@icons-pack/react-simple-icons"
 
 export  const IconMap= {
@@ -37,6 +38,7 @@ export  const IconMap= {
     react:{name: "React",icon: SiReact},
     vite:{name: "Vite",icon: SiVite},
     vitest:{name: "Vitest",icon: SiVitest},
+    testinglibrary:{name: "TestingLibrary",icon: SiTestinglibrary},
     next:{name: "Next.js",icon: SiNextdotjs},
     svelte:{name: "Svelte",icon: SiSvelte},
     astro:{name: "Astro",icon: SiAstro},

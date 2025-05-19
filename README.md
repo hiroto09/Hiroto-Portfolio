@@ -1,6 +1,7 @@
 # INOUEPORTFOLIO
 
 [ポートフォリオサイト](https://orca-ha-orca.pages.dev/)
+時間帯によって雰囲気が変わるよ！！
 
 ## 概要
 3Dを利用した井上翔人のポートフォリオサイトです。

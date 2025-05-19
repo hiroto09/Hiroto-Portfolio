@@ -35,6 +35,14 @@ export default function Three() {
   >([0, 0.25, 0]);
   const windowWidth = useRef<number | null>(null);
 
+  const openTime = new Date().getHours();
+  console.log("openTime",openTime);
+  let color:string = "white"
+
+  if(openTime>=19){
+    color = "#6080C0"
+  }
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const newWidth = window.innerWidth;
@@ -74,10 +82,11 @@ export default function Three() {
         <Environment resolution={512}>
           <group rotation={[-Math.PI / 3, 0, 0]}>
             <Lightformer
-              intensity={1}
+              intensity={1.5}
               rotation-y={Math.PI / 2}
               position={[-1, 0, 0]}
               scale={[10, 10, 10]}
+              color={color}
             />
             <Lightformer
               intensity={1}

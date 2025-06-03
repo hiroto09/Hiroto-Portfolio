@@ -24,6 +24,9 @@
 ### スタイリング: SCSS
 CSSを記述する上で、HTMLと同じ階層構造でスタイリングを記述できる点がコードの管理のしやすさに繋がると感じた。
 
+### ライブラリ: ReactThreeFiber
+Webで3DといえばThree.jsが有名だが、今回選定したReactThreeFiberは、Three.jsをReact用に作られたライブラリでThree.jsよりも軽量化されたものとなっており、Three.jsよりパフォーマンスを向上させることができると感じて利用した。
+
 ## 開発環境のセットアップ
 
 ```bash

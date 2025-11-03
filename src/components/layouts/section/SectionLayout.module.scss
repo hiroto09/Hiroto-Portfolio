@@ -1,15 +1,8 @@
-.content {
-  background-color: rgba(255, 255, 255, 0.604);
-  width: 70%;
-  padding: 20px;
-  margin: 30px auto 0;
-  color:black;
-  border-radius: 10px;
-}
-.none {
-  width: 70%;
-  padding: 20px;
-  margin: 30px auto 0;
+/* --- Section Layout Base --- */
+.sectionWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
@@ -20,6 +13,19 @@
   color: white;
 }
 
+.content {
+  width: 70%;
+  padding: 20px;
+  margin: 30px auto 0;
+  border-radius: 10px;
+}
+
+.none {
+  width: 70%;
+  padding: 20px;
+  margin: 30px auto 0;
+}
+
 @media screen and (max-width: 1120px) {
   .content {
     width: 80%;
@@ -28,3 +34,59 @@
     width: 80%;
   }
 }
+
+/* --- Liquid Glass Styles --- */
+
+.liquidGlassWrapper {
+  padding: 1rem;
+  position: relative;
+  font-weight: 600;
+  overflow: hidden;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+  border-radius: 2rem;
+}
+
+.liquidGlassTint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  backdrop-filter: blur(1px);
+  animation: waveMove 6s infinite linear;
+  background-size: 200% 200%;
+  border-radius: 1rem;
+}
+
+
+.liquidGlassShine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  box-shadow: inset 2px 2px 1px 0 rgba(255, 255, 255, 0.3),
+    inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.liquidGlassText {
+  position: relative;
+  z-index: 3;
+  font-size: 2rem;
+}
+
+.dock {
+  gap: 8px;
+  border-radius: 2rem;
+  padding: 0.6rem;
+}
+
+.dock,
+.dock > div {
+  border-radius: 2rem;
+}
+
+
+
